@@ -1,0 +1,8 @@
+{
+  "name": "Post_GET_server",
+  "version":"1.0.0",
+  "dependencies":{
+    "mysql":"2.13.0"
+  },
+  "main": "./lib/main.js"
+}
