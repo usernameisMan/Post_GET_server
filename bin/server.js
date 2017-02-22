@@ -4,7 +4,7 @@ const  URLParse = require('./URLParse');
 const  pageNames = require('./pageName');
 const  accessLog = require('./accessLog');
 const  querystring = require('querystring');
-const dataBase = requery('../dao/dataBase');
+
 
 function startServer(serCon){
     http.createServer(function(request,response){
