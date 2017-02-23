@@ -16,6 +16,7 @@ function main(serCon){
     console.log('服务器端口号:'+serCon.port+'\n');
     console.log('有请求权限页面数:'+pageName.pageNumber+"\n");
     server.startServer(serCon);
+    
 }
 
 main(serCon); //服务器配置文件的路径

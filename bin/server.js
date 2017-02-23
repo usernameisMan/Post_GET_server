@@ -4,7 +4,7 @@ const  URLParse = require('./URLParse');
 const  pageNames = require('./pageName');
 const  accessLog = require('./accessLog');
 const  querystring = require('querystring');
-
+const  DD = require('../dao/DealData');
 
 function startServer(serCon){
     http.createServer(function(request,response){
@@ -14,14 +14,14 @@ function startServer(serCon){
             accessLog.start(request,serCon.accessLogPath,pageName);//open log 
              if(ispage(pageName)){
                  //确认页面存在根据页面名找数据
-                getData(pageName,urlquery.pageID);
+                getData(pageName,urlquery);
              }else{
                 response.writeHead(404,{'Access-Control-Allow-Origin':'*'});
                 response.end();
              }
             response.writeHead(200,{'Access-Control-Allow-Origin':'*'});
             response.end();
-    }).listen(serCon.port)
+    }).listen(serCon.port);
 }
 
 //看看权限数组里面又没有
@@ -34,8 +34,8 @@ function ispage(pageName){
 }
 
 //传入数据处理对象
-function getData(page,pageID){
-    console.log("OK")
+function getData(page,urlquery){
+    DD.Parse(page,urlquery);
 }
 
 exports.startServer=startServer;
