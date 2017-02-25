@@ -1,13 +1,23 @@
-const NewsList=require('../Model/Model_NewsList')
+const NewsList=require('../Model/Model_NewsList');
+const NewsContent = require('../Model/Model_NewsContent');
 function DD(){
         this.Parse=function(page,urlquery){
             switch(page)
             {
             case 'NewsList':
-            
+                NewsList.parse(page,urlquery);
             break;
-            case 2:
-            
+            case 'NewsContent':
+                NewsContent.parse(page,urlquery);
+            break;
+            case 'NewsContentAdmin':
+                NewsContent.parse(page,urlquery);
+            break;
+            case 'NewsContentAdmin':
+                NewsContent.parse(page,urlquery);
+            break;
+            case 'POST':
+                NewsContent.parse(urlquery);
             break;
             default:
             

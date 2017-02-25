@@ -1,7 +1,10 @@
 function NewsContent(){
-    this.getPage=function(id){
+    this.getPage=(id)=>{
         //取出ID
+    }
+    this.parse=(page,urlquery)=>{
+
     }
 }
 var newsList=new NewsList();
-exports.NewsList = newsList;
+exports.parse = newsList.parse;
