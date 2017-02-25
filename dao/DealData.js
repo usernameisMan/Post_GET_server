@@ -2,6 +2,7 @@ const NewsList=require('../Model/Model_NewsList');
 const NewsContent = require('../Model/Model_NewsContent');
 function DD(){
         this.Parse=function(page,urlquery){
+            //返回页面刷新请求的初始化数据
             switch(page)
             {
             case 'NewsList':
@@ -13,14 +14,9 @@ function DD(){
             case 'NewsContentAdmin':
                 NewsContent.parse(page,urlquery);
             break;
-            case 'NewsContentAdmin':
-                NewsContent.parse(page,urlquery);
-            break;
             case 'POST':
                 NewsContent.parse(urlquery);
             break;
-            default:
-            
             }               
         }
 }
