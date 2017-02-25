@@ -6,7 +6,8 @@ var connection = mysql.createConnection({
     host:'127.0.0.1',
     user:'root',
     password:'root',
-    port:'3306'
+    port:'3306',
+    database:'t1'
 });
 //启动链接
 connection.connect((err)=>{
@@ -29,3 +30,15 @@ function insertData(){
 function setData(){
 
 }
+//自定义查询语句
+function Custom(str){
+    connection.query(str,function(err,rows,fields){
+        if(err) {return '自定义查询语句'+err}
+        return rows;
+    })
+}
+
+exports.Custom=Custom;
+exports.setData=setData;
+exports.insertData=insertData;
+exports.getData=getData;

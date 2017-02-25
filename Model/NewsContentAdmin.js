@@ -1,8 +1,8 @@
 function NewsContenAdmin(){
-    this.parse= function(){
+    this.parse= function(page,urlquery){
         
     }
 }
 
 var NewsContenAdmin=new NewsContenAdmin();
-exports.parse=NewsContenAdmin.parse();
+exports.parse=NewsContenAdmin.parse;
