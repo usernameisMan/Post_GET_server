@@ -31,9 +31,10 @@ function setData(){
 
 }
 //自定义查询语句
-function Custom(str){
+function Custom(str,urlquery,callback){
     connection.query(str,function(err,rows,fields){
         if(err) {return '自定义查询语句'+err}
+        callback(rows,callback);
         return rows;
     })
 }
