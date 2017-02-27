@@ -6,8 +6,10 @@ const  accessLog = require('./accessLog');
 const  querystring = require('querystring');
 const  DD = require('../dao/DealData');
 
+
 function startServer(serCon){
     http.createServer(function(request,response){
+            global.response=response;
             var urlObj = url.parse(request.url);
             var urlquery=querystring.parse(urlObj.query);
             var pageName = URLParse.StartParse(urlObj); //拿到请求的页面
@@ -15,12 +17,11 @@ function startServer(serCon){
              if(ispage(pageName)){
                  //确认页面存在根据页面名找数据
                 getData(pageName,urlquery);
+       
              }else{
                 response.writeHead(404,{'Access-Control-Allow-Origin':'*'});
                 response.end();
              }
-            response.writeHead(200,{'Access-Control-Allow-Origin':'*'});
-            response.end();
     }).listen(serCon.port);
 }
 

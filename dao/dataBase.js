@@ -32,11 +32,11 @@ function setData(){
 }
 //自定义查询语句
 function Custom(str,urlquery,callback){
+    var json;
     connection.query(str,function(err,rows,fields){
-        if(err) {return '自定义查询语句'+err}
-        callback(rows,callback);
-        return rows;
-    })
+            if(err) { throw err }
+            callback(rows,callback);
+    });
 }
 
 exports.Custom=Custom;
