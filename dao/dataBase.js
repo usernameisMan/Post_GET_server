@@ -19,8 +19,11 @@ connection.connect((err)=>{
 });
 
 //get方法
-function getData(){
-
+function getData(id,callback){
+    connection.query("select * from newslist where id="+id,function(err,rows,fields){
+            if(err) { throw err }
+            callback(rows);
+    });
 }
 //插入数据
 function insertData(){
@@ -35,7 +38,7 @@ function Custom(str,urlquery,callback){
     var json;
     connection.query(str,function(err,rows,fields){
             if(err) { throw err }
-            callback(rows,callback);
+            callback(rows,urlquery);
     });
 }
 

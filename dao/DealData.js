@@ -1,5 +1,5 @@
 const NewsList=require('../Model/Model_NewsList');
-const NewsContent = require('../Model/Model_NewsContent');
+const Content = require('../Model/Model_NewsContent');
 const NewsContentAdmin = require('../Model/NewsContentAdmin')
 function DD(){
         this.Parse=function(page,urlquery){
@@ -8,16 +8,18 @@ function DD(){
             switch(page)
             {
             case 'NewsList.html':
-                return NewsList.parse(page,urlquery);
+                console.log("OK! NewsList");
+                NewsList.parse(page,urlquery);
             break;
-            case 'NewsContent.html':
-                return NewsContent.parse(page,urlquery);
+            case 'content.html':
+                console.log("OK! content");
+                Content.parse(page,urlquery);
             break;
             case 'NewsContentAdmin.html':
-                return NewsContentAdmin.parse(page,urlquery);
+                NewsContentAdmin.parse(page,urlquery);
             break;
             case 'POST':
-                return NewsContent.parse(urlquery);
+                console.log("OK! POST");
             break;
             }               
         }

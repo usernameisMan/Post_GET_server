@@ -1,5 +1,6 @@
 var List = [
-'NewsList.html'
+'NewsList.html',
+'content.html'
 ];
 
 //用于判断当前请求的页面是否存在

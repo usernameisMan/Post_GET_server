@@ -9,19 +9,29 @@ const  DD = require('../dao/DealData');
 
 function startServer(serCon){
     http.createServer(function(request,response){
-            global.response=response;
-            var urlObj = url.parse(request.url);
-            var urlquery=querystring.parse(urlObj.query);
-            var pageName = URLParse.StartParse(urlObj); //拿到请求的页面
-            accessLog.start(request,serCon.accessLogPath,pageName);//open log 
-             if(ispage(pageName)){
-                 //确认页面存在根据页面名找数据
-                getData(pageName,urlquery);
-       
-             }else{
-                response.writeHead(404,{'Access-Control-Allow-Origin':'*'});
-                response.end();
-             }
+        if(request.method=='GET'){
+                        global.response=response;
+                        var urlObj = url.parse(request.url);//获取URL参数字符串
+                        var urlquery=querystring.parse(urlObj.query);//把字符串转换成对象
+                        var pageName = URLParse.StartParse(urlObj); //拿到请求的页面
+                        accessLog.start(request,serCon.accessLogPath,pageName);//open log
+                        if(ispage(pageName)){
+                            //确认页面存在根据页面名找数据
+                            getData(pageName,urlquery);
+                        }else{
+                            response.writeHead(404,{'Access-Control-Allow-Origin':'*'});
+                            response.end();
+                        }
+            }else if(request.method=='POST'){
+                var post = ''; 
+                request.on('data',function(chunk){
+                    post += chunk;
+                });
+                request.on('end',function(data){
+                        //确认页面存在根据页面名找数据
+                     getData('POST',post);
+                });
+            }
     }).listen(serCon.port);
 }
 
