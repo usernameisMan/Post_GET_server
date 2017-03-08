@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<link rel="stylesheet" type="text/css" href="./tmp/News_List_to_server_test01/css/style.css"/>
+	</head>
+	<body>
+		<div class="topmenu">
+				<ul class="t_u">
+					<li><a href="./NewsList.html">内容列表</a></li>
+					<li><a href="">关于我</a></li>
+					<li><a href="./tmp/News_List_to_server_test01/login.html">管理员入口</a></li>
+				</ul>
+		</div>
+		<div class="as_body">
+				<div class="as_c_menu">
+					<a class="b_1" data-name="box_1"></a>
+					<a class="b_2" data-name="box_2"></a>
+					<a class="b_3" data-name="box_3"></a>
+					<a class="b_4" data-name="box_4"></a>
+				</div>
+			<div class="conli">
+				<div class="content">
+					<div class="box_1"><!--列表-->
+						<div class="l_h_b">
+							<input type="checkbox" name="" id="allcheck" value="" />
+							<span class="h">标题</span>
+							<span class="date">创建时间</span>	
+							<span class="set">操作</span>
+						</div>
+						<div class="l_b">
+							<input type="checkbox" name="" id="" value="" />
+							<span class="h">标题</span>
+							<span class="date">创建时间</span>	
+							<button class="set">操作</button>
+						</div>						
+					</div>
+					<div class="box_2"><!--内容-->
+						<div>
+							<label>标题</label>
+							<input id="set_h" type="text" id="" value="" placeholder="不要超过30个中文字符"/>
+						</div>
+						<div>
+							<label>简介</label>
+							<input id="set_f" type="text" id="" value="" placeholder="不要超过120个中文字符"/>
+						</div>
+						<div>
+							<label>封面图片</label>
+							<a href="" class="upbut">本地选择图<input id="set_img" type="file" id=""  /></a>
+						</div>
+						<div>
+							<label>内容</label>
+							<div id="set_b" style="height:400px;max-height:500px;">
+								 
+							</div>
+						</div>
+						<div>
+							<button id='setSave'>保存</button>
+						</div>
+					</div>
+					<div class="box_3"><!--导航-->
+						
+					</div>
+					<div class="box_4"><!---->
+						
+					</div>
+				</div>
+			</div>
+		</div>
+	</body>
+		<script src="./tmp/News_List_to_server_test01/js/jquery-2.1.0.js" type="text/javascript" charset="utf-8"></script>
+		<script src="./tmp/News_List_to_server_test01/js/Public_util.js" type="text/javascript" charset="utf-8"></script>
+		<script src="./tmp/News_List_to_server_test01/Util/kindeditor/kindeditor-all.js" type="text/javascript" charset="utf-8"></script>
+		<script src="./tmp/News_List_to_server_test01/Util/kindeditor/lang/zh_CN.js" type="text/javascript" charset="utf-8"></script>
+		<script src="./tmp/News_List_to_server_test01/js/a_S.js" type="text/javascript" charset="utf-8"></script>
+</html>
+<script type="text/javascript">
+	
+	KindEditor.options.filterMode = false;
+	option={
+		 	allowUpload : true,
+		 	uploadJson: '/upload'	  
+	}
+  	KindEditor.ready(function(K) {
+  		window.editor = K.create('#set_b',option);
+  	});
+  		
+</script>

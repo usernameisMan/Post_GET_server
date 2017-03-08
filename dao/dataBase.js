@@ -37,7 +37,7 @@ function setData(){
 function Custom(str,urlquery,callback){
     var json;
     connection.query(str,function(err,rows,fields){
-            if(err) { throw err }
+            if(err) {throw err}
             callback(rows,urlquery);
     });
 }
