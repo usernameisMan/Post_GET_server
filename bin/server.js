@@ -10,8 +10,6 @@ const  DD = require('../dao/DealData');
 function startServer(serCon){
     http.createServer(function(request,response){
         global.response=response;
-
-
         if(request.method=='GET'){
                         var urlObj = url.parse(request.url);//获取URL参数字符串
                         var urlquery=querystring.parse(urlObj.query);//把字符串转换成对象
@@ -19,8 +17,9 @@ function startServer(serCon){
                         accessLog.start(request,serCon.accessLogPath,pageName.PageName);//open log
                         if(ispage(pageName.PageName)){
                             //确认页面存在根据页面名找数据
-                            getData(pageName.PageName,urlquery);
+                            DD.Parse(pageName.PageName,urlquery);//页面名字和页面?后面的数据
                         }else{
+                            //下面是对资源文件夹的遍历
                                 var res='';
                                 var str , dir;
                                 dir=Find_ALL_Directory_file("tmp/News_List_to_server_test01",pageName.PageName);
@@ -47,12 +46,14 @@ function startServer(serCon){
                 var urlquery=querystring.parse(urlObj.query);//把字符串转换成对象
 
                 if(urlquery['dir']=='image'){
-                    imgParse(post,size);
+                    imgParse(post,size,null);
+                }else if(urlquery['dir']=='otherimage'){
+                    imgParse(post,size,urlquery['dir']);
                 }else{
                     var buffer = Buffer.concat(post , size);//把post数组转换成buffer
                     var conOBJ = buffer.toString();//把buffer转换成字符串
                     POSTOBJ=querystring.parse(conOBJ);//把字符串形式的buffer转换成node 的 json 对象
-                    getData('POST',POSTOBJ);
+                    DD.Parse('POST',POSTOBJ);
                 } 
             });
         }
@@ -67,11 +68,6 @@ function ispage(pageName){
             return true;
         }
     }
-}
-
-//传入数据处理对象
-function getData(page,urlquery){
-    DD.Parse(page,urlquery);
 }
 
 function Find_ALL_Directory_file(Folder,target){
@@ -91,7 +87,7 @@ function Find_ALL_Directory_file(Folder,target){
     }
 }
 
-function imgParse(chunks,size){
+function imgParse(chunks,size,type){
     var buffer = Buffer.concat(chunks , size);
     if(!size){
         response.writeHead(404);
@@ -107,26 +103,31 @@ function imgParse(chunks,size){
             rems.push(i);
         }
     }
-
-    //图片信息第几行的第几 具体看具体buffer数据
-    var picmsg_1 = buffer.slice(rems[4],rems[5]).toString();
-    var filename = picmsg_1.match(/filename=".*"/g)[0].split('"')[1];
-    //图片数据息第几行的第几
-    var nbuf = buffer.slice(rems[7]+2,rems[rems.length-2]);
-
-    //  //图片信息
-    // var picmsg_1 = buffer.slice(rems[0]+2,rems[1]).toString();
-    // var filename = picmsg_1.match(/filename=".*"/g)[0].split('"')[1];
-    // console.log(filename);
-    // //图片数据
-    // var nbuf = buffer.slice(rems[3]+2,rems[rems.length-2]);   
-
-    var path = './tmp/News_List_to_server_test01/upload/'+filename;
+    if(type==null){
+        //图片信息第几行的第几 具体看具体buffer数据
+        var picmsg_1 = buffer.slice(rems[4],rems[5]).toString();
+        var filename = picmsg_1.match(/filename=".*"/g)[0].split('"')[1];
+        //图片数据息第几行的第几
+        var nbuf = buffer.slice(rems[7]+2,rems[rems.length-2]);
+    }else{
+        //图片信息
+        var picmsg_1 = buffer.slice(rems[0]+2,rems[1]).toString();
+        var filename = picmsg_1.match(/filename=".*"/g)[0].split('"')[1];
+        //图片数据
+        var nbuf = buffer.slice(rems[3]+2,rems[rems.length-2]);   
+    }
+    var path = 'tmp/News_List_to_server_test01/upload/'+filename;
     fs.writeFileSync(path , nbuf);
     console.log("保存"+filename+"成功");
+    var pathend='http://127.0.0.1:8888/'+path;
+    if(type==null){
+        response.writeHead(200, { 'Content-Type': 'text/html;charset=utf-8',"Access-Control-Allow-Origin":"*"});
+        response.end(JSON.stringify({"error":0,"url":pathend}));
+    }else{
+        response.writeHead(200, { 'Content-Type': 'text/html;charset=utf-8',"Access-Control-Allow-Origin":"*"});
+        response.end('<img id="responseimg" src = '+pathend+'>');       
+    }
 
-    response.writeHead(200, { 'Content-Type': 'text/html;charset=utf-8',"Access-Control-Allow-Origin":"*"});
-    response.end(JSON.stringify({"error":0,"url":path}));
 }
 
 exports.startServer=startServer;

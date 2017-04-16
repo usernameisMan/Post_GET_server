@@ -15,7 +15,7 @@ function login(){
 		method:'POST',
         dataType: "json",
         data:{
-			password:pw.value,
+			password:pw.value||null,
 			DDtype:'loginPassWord'
 		}	
 	 })

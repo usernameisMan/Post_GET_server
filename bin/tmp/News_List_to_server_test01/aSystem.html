@@ -3,12 +3,14 @@
 	<head>
 		<meta charset="UTF-8">
 		<title></title>
+		<link rel="stylesheet" type="text/css" href="./tmp/News_List_to_server_test01/css/bootstrap.css"/>
 		<link rel="stylesheet" type="text/css" href="./tmp/News_List_to_server_test01/css/style.css"/>
-	</head>
+		
+	</head> 
 	<body>
 		<div class="topmenu">
 				<ul class="t_u">
-					<li><a href="./NewsList.html">内容列表</a></li>
+					<li><a href="http://127.0.0.1:8020/News_List_to_server_test01/NewsList.html">内容列表</a></li>
 					<li><a href="">关于我</a></li>
 					<li><a href="./tmp/News_List_to_server_test01/login.html">管理员入口</a></li>
 				</ul>
@@ -27,18 +29,21 @@
 							<input type="checkbox" name="" id="allcheck" value="" />
 							<span class="h">标题</span>
 							<span class="date">创建时间</span>	
-							<span class="set">操作</span>
+							<span class="creatbut"><a href="javascript:setcontent('create')">新建</a></span>
+							<span class="creatbut" style="right: 85px;"><a href="javascript:delectcs()">批量删除</a></span>
 						</div>
-						<div class="l_b">
-							<input type="checkbox" name="" id="" value="" />
-							<span class="h">标题</span>
-							<span class="date">创建时间</span>	
-							<button class="set">操作</button>
-						</div>						
+						<div id="Newslist">
+						</div>
+						<div id="pages">
+							<ul class="pagination">
+							<!--分页按钮-->
+							</ul>							
+						</div>												
 					</div>
-					<div class="box_2"><!--内容-->
+					<div class="box_2"><!--设置内容-->
 						<div>
 							<label>标题</label>
+							<input id="set_id" value="" width="0" height="0">
 							<input id="set_h" type="text" id="" value="" placeholder="不要超过30个中文字符"/>
 						</div>
 						<div>
@@ -46,8 +51,10 @@
 							<input id="set_f" type="text" id="" value="" placeholder="不要超过120个中文字符"/>
 						</div>
 						<div>
-							<label>封面图片</label>
-							<a href="" class="upbut">本地选择图<input id="set_img" type="file" id=""  /></a>
+							<label>当前封面图片</label>
+							<img src="" alt="" id='view_img'>
+							<label>设置上传新的封面图片</label>
+							<a href="javascript:void(0)" class="upbut">本地选择图<iframe src="upload.html" frameborder="0"  width="0" height="0" id="upl"></iframe></a>
 						</div>
 						<div>
 							<label>内容</label>
@@ -59,8 +66,7 @@
 							<button id='setSave'>保存</button>
 						</div>
 					</div>
-					<div class="box_3"><!--导航-->
-						
+					<div class="box_3"><!--新建内容-->						
 					</div>
 					<div class="box_4"><!---->
 						
@@ -76,14 +82,13 @@
 		<script src="./tmp/News_List_to_server_test01/js/a_S.js" type="text/javascript" charset="utf-8"></script>
 </html>
 <script type="text/javascript">
-	
 	KindEditor.options.filterMode = false;
 	option={
 		 	allowUpload : true,
-		 	uploadJson: '/upload'	  
+		 	uploadJson: '/upload',
+			formatUploadUrl:false
 	}
   	KindEditor.ready(function(K) {
   		window.editor = K.create('#set_b',option);
   	});
-  		
 </script>

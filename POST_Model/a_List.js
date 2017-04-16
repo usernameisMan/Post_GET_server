@@ -1,6 +1,6 @@
 const  db=require('../dao/dataBase');
 
-function NewsList(){
+function a_List(){
     this.parse=(page,urlquery)=>{
         db.Custom('select count(*) from newslist',urlquery,(rows,urlquery)=>{
             urlquery.allNum = rows[0]['count(*)'];//给对象添加numb个数
@@ -11,9 +11,9 @@ function NewsList(){
             var sql ="select * from newslist where id>="+nst+" and id<="+ned+";"; 
             db.Custom(sql,urlquery,(rows,urlquery)=>{
              var json ={
-                "pnum":urlquery.pnum, //一共有多少页面
-                "content":rows, //根据提供的数据查到的当前页面data
-                      }               
+                "pnum":urlquery.pnum,
+                "content":rows
+                      }
                 global.response.writeHead(200,{"Content-Type":"application/json",'Access-Control-Allow-Origin':'*'});
                 global.response.end(JSON.stringify(json));
             });
@@ -22,5 +22,6 @@ function NewsList(){
          
     }
 }
-var newsList=new NewsList();
-exports.parse = newsList.parse;
+
+var a_List=new a_List();
+exports.parse = a_List.parse;

@@ -31,7 +31,10 @@ function insertData(){
 }
 //设置数据
 function setData(){
-
+    
+}
+function delData(){
+    
 }
 //自定义查询语句
 function Custom(str,urlquery,callback){

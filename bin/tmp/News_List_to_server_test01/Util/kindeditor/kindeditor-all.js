@@ -7150,7 +7150,7 @@ KindEditor.plugin('image', function(K) {
 			afterUpload : function(data) {
 				dialog.hideLoading();
 				if (data.error === 0) {
-					var url = data.url;
+					var url = data.url;			
 					if (formatUploadUrl) {
 						url = K.formatUrl(url, 'absolute');
 					}
